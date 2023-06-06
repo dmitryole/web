@@ -24,7 +24,7 @@ def get_python_news():
         for news in all_news:
             title = news.find('a').text
             url = news.find('a')['href']
-            published = news.find('time').text
+            published = news.find('time')['datetime']
             try:
                 """Парсим строку в формате datetime"""
                 published = datetime.strptime(published, '%Y-%m-%d')
