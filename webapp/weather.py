@@ -1,6 +1,7 @@
 from flask import current_app
 import requests
 
+
 def weather_by_city(city_name):
     weather_url = current_app.config['WEATHER_URL']
     params = {
@@ -26,6 +27,7 @@ def weather_by_city(city_name):
     except(result.RequestException, ValueError):
         print('Сетевая ошибка')
         return False
+
 
 if __name__ == "__main__":
     weather = weather_by_city("Yekaterinburg,Russia")
