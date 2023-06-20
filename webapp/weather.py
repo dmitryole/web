@@ -14,17 +14,17 @@ def weather_by_city(city_name):
     try:
         # Запрос
         result = requests.get(weather_url, params=params)
-        # Обратотка сетевых ошибок 
+        # Обратотка сетевых ошибок
         result.raise_for_status()
         weather = result.json()
         if 'data' in weather:
             if 'current_condition' in weather['data']:
                 try:
                     return weather['data']['current_condition'][0]
-                except(IndexError, TypeError):
+                except (IndexError, TypeError):
                     return False
         return False
-    except(result.RequestException, ValueError):
+    except (result.RequestException, ValueError):
         print('Сетевая ошибка')
         return False
 

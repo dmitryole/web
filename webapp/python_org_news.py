@@ -3,17 +3,20 @@ from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
 
-from webapp.model import db, News
+from webapp.db import db
+from webapp.news.models import News
+
 
 def get_html(url):
     try:
         result = requests.get(url)
         result.raise_for_status()
         return result.text
-    except(result.RequestException, ValueError):
+    except (result.RequestException, ValueError):
         print('Сетевая ошибка')
         return False
-    
+
+
 def get_python_news():
     html = get_html('https://www.python.org/blogs/')
     if html:
@@ -28,9 +31,10 @@ def get_python_news():
             try:
                 """Парсим строку в формате datetime"""
                 published = datetime.strptime(published, '%Y-%m-%d')
-            except(ValueError):
+            except (ValueError):
                 published = datetime.now()
             save_news(title, url, published)
+
 
 def save_news(title, url, published):
     """Выборка из БД"""
